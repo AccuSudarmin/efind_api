@@ -24,12 +24,5 @@
       echo json_encode($model->getById($id));
    });
 
-   // POST route
-   $app->post('/post',
-      function () {
-         echo 'This is a POST route';
-      }
-   );
-
    $app->run();
 ?>
