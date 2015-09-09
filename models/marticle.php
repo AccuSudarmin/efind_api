@@ -1,7 +1,4 @@
 <?php
-   /**
-    *
-    */
    class Marticle extends Models
    {
       function __construct() {
@@ -24,7 +21,12 @@
             'where' => "arId = '" . $id . "'"
          ));
 
-         return $this->dbsql->row();
+         $data = $this->dbsql->result();
+
+         if ($data) $result = $data[0];
+         else $result = array();
+         
+         return $result;
       }
    }
 

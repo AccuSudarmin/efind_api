@@ -9,13 +9,6 @@
             'db_name' => DB_NAME
          ));
       }
-
-      public function load($model) {
-         require_once './models/' . $model . '.php';
-
-         $class_name = strtolower($model);
-			$this->$class_name = new $model;
-      }
    }
 
 ?>
