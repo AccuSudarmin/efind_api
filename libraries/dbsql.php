@@ -15,7 +15,7 @@ class dbsql {
    public function select( $sql = array() ) {
 		$q = "SELECT ";
 
-		if (isset($sql['select'])) $q .= $sq['select'];
+		if (isset($sql['select'])) $q .= $sql['select'];
    	else $q .= "*";
 
       $q .= " FROM " . $sql['table'];
@@ -32,8 +32,7 @@ class dbsql {
 
 	public function inner_join( $sql = array() ){
       $q = "SELECT ";
-
-		if (isset($sql['select'])) $q .= $sq['select'];
+		if (isset($sql['select'])) $q .= $sql['select'];
    	else $q .= "*";
 
 		$q .= " FROM ";
@@ -145,7 +144,7 @@ class dbsql {
 	public function row() {
 		$data = result();
 
-		
+
       return $result;
 	}
 

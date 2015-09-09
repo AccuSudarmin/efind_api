@@ -6,10 +6,13 @@
       }
 
       public function getAll(){
-         parent::__construct();
 
-         $this->dbsql->select( array(
-            'table' => "article"
+         $this->dbsql->inner_join( array(
+            'table' => array(
+               array('name' => "article") ,
+               array('name' => "admin" , 'on' => "article.arAuthor = admin.amId")
+            ) ,
+            'select' => "arId, arTitle, arDateStart, arDateEnd, amName"
          ));
 
          return $this->dbsql->result();
@@ -25,7 +28,7 @@
 
          if ($data) $result = $data[0];
          else $result = array();
-         
+
          return $result;
       }
    }
