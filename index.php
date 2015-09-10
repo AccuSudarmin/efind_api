@@ -39,7 +39,7 @@
       'checkApi' ,
       function ($id) use ($loader) {
 
-         $model = $loader->model("marticle");
+         $marticle = $loader->model("marticle");
          echo json_encode($model->getById($id));
 
       }
@@ -50,8 +50,8 @@
       'checkApi' ,
       function ($cat) use ($loader) {
 
-         $model = $loader->model("marticle");
-         echo json_encode($model->getByCategory($cat));
+         $marticle = $loader->model("marticle");
+         echo json_encode($marticle->getByCategory($cat));
 
       }
    );
