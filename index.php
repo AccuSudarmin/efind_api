@@ -6,23 +6,50 @@
    $app = new \Slim\Slim();
    $loader = new loader();
 
+   function checkApi (){
+      $app = \Slim\Slim::getInstance();
+      if ($app->request->headers->get('API_KEY') != API_KEY ) {
+         echo json_encode(array("message" => "wrong api"));
+         exit;
+      }
+   };
+
    // GET route
-   $app->get('/', function () {
-         echo "API Eventfinder";
+   $app->get(
+      '/',
+      'checkApi' ,
+      function () {
+         echo "coba";
       }
    );
 
-   $app->get('/article/all', function () use ($loader) {
-      $model = $loader->model("marticle");
+   $app->get(
+      '/event/all',
+      'checkApi' ,
+      function () use ($loader) {
+         $marticle = $loader->model("marticle");
+         echo json_encode($marticle->getAll());
+      }
+   );
 
-      echo json_encode($model->getAll());
-   });
+   $app->get(
+      '/event/:id',
+      'checkApi' ,
+      function ($id) use ($loader) {
 
-   $app->get('/article/:id', function ($id) use ($loader) {
-      $model = $loader->model("marticle");
+         $model = $loader->model("marticle");
+         echo json_encode($model->getById($id));
+      }
+   );
 
-      echo json_encode($model->getById($id));
-   });
+   $app->get(
+      '/event/category/:cat',
+      'checkApi' ,
+      function ($cat) use ($loader) {
+         $model = $loader->model("marticle");
+         echo json_encode($model->getByCategory($cat));
+      }
+   );
 
    $app->run();
 ?>

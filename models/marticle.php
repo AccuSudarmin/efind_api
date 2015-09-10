@@ -10,18 +10,24 @@
          $this->dbsql->inner_join( array(
             'table' => array(
                array('name' => "article") ,
-               array('name' => "admin" , 'on' => "article.arAuthor = admin.amId")
+               array('name' => "admin" , 'on' => "article.arAuthor = admin.amId") ,
+               array('name' => "category" , 'on' => "article.arCategory = category.catId")
             ) ,
-            'select' => "arId, arTitle, arDateStart, arDateEnd, amName"
+            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, catName, amName"
          ));
 
          return $this->dbsql->result();
       }
 
       public function getById($id){
-         $this->dbsql->select( array(
-            'table' => "article" ,
-            'where' => "arId = '" . $id . "'"
+         $this->dbsql->inner_join( array(
+            'table' => array(
+               array('name' => "article") ,
+               array('name' => "admin" , 'on' => "article.arAuthor = admin.amId") ,
+               array('name' => "category" , 'on' => "article.arCategory = category.catId")
+            ) ,
+            'where' => "arId = '" . $id . "'" ,
+            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, catName, amName"
          ));
 
          $data = $this->dbsql->result();
@@ -30,6 +36,20 @@
          else $result = array();
 
          return $result;
+      }
+
+      public function getByCategory($cat){
+         $this->dbsql->inner_join( array(
+            'table' => array(
+               array('name' => "article") ,
+               array('name' => "admin" , 'on' => "article.arAuthor = admin.amId") ,
+               array('name' => "category" , 'on' => "article.arCategory = category.catId")
+            ) ,
+            'where' => "category.catName = '" . $cat . "'" ,
+            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, catName, amName"
+         ));
+
+         return $this->dbsql->result();
       }
    }
 
