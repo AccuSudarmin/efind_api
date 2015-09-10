@@ -27,8 +27,10 @@
       '/event/all',
       'checkApi' ,
       function () use ($loader) {
+
          $marticle = $loader->model("marticle");
          echo json_encode($marticle->getAll());
+
       }
    );
 
@@ -39,6 +41,7 @@
 
          $model = $loader->model("marticle");
          echo json_encode($model->getById($id));
+
       }
    );
 
@@ -46,8 +49,10 @@
       '/event/category/:cat',
       'checkApi' ,
       function ($cat) use ($loader) {
+
          $model = $loader->model("marticle");
          echo json_encode($model->getByCategory($cat));
+
       }
    );
 
