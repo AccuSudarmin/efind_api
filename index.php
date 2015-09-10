@@ -19,7 +19,7 @@
       '/',
       'checkApi' ,
       function () {
-         echo "coba";
+         echo "Eventfinder Api";
       }
    );
 
