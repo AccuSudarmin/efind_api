@@ -122,8 +122,9 @@ class dbsql {
 	public function result(){
    	$result = array();
       $fields = array();
-
+		$std = new stdClass();
 		$i = 0;
+
       while ($i < mysqli_num_fields($this->query)) {
       	$field = mysqli_fetch_field($this->query);
          $fields[$i] = $field->name;
@@ -134,19 +135,19 @@ class dbsql {
       while ($data = mysqli_fetch_array($this->query)) {
          for ($a=0; $a < count($fields); $a++) {
          	$name = $fields[$a];
-            $result[$i][$name] = $data[$name];
+            $std->{$name} = $data[$name];
          }
-         $i++;
+			array_push($result, $std);
+			$i++;
    	}
       return $result;
    }
 
-	public function row() {
-		$data = result();
-
-
-      return $result;
-	}
+	// public function row() {
+	// 	$result = result();
+	//
+   //    return $result;
+	// }
 
    public function update_injoin( $sql = array() ){
    	$q = "UPDATE ";

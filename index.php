@@ -8,7 +8,9 @@
 
    function checkApi (){
       $app = \Slim\Slim::getInstance();
-      if ($app->request->headers->get('API_KEY') != API_KEY ) {
+
+      $header = apache_request_headers();
+      if ($header['API_KEY'] != API_KEY ) {
          echo json_encode(array("message" => "wrong api"));
          exit;
       }
