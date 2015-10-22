@@ -12,13 +12,22 @@
                array('name' => "article") ,
                array('name' => "admin" , 'on' => "article.arAuthor = admin.amId") ,
                array('name' => "ref_category" , 'on' => "article.arCategory = ref_category.catId") ,
-               array('name' => "ref_map", 'on' => "article.arId = ref_map.mapArticleId")
+               array('name' => "ref_map", 'on' => "article.arId = ref_map.mapArticleId") ,
+               array('name' => "ref_social_media", 'on' => "article.arId = ref_social_media.smArticleId")
             ) ,
-            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, catName, amName, mapLongitude, mapLatitude, mapZoom" ,
+            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, arURL, catName, amName, mapLongitude, mapLatitude, mapZoom , smTwitter, smInstagram, smFacebook, smLine, smPath" ,
             'order' => 'arDateStart DESC'
          ));
 
-         return $this->dbsql->result();
+         $article = $this->dbsql->result();
+         $result = array();
+
+         foreach ($article as $data) {
+            $key = $data->arURL;
+            $result[$key] = $data;
+         }
+
+         return $result;
       }
 
       public function getById($id){
@@ -27,16 +36,20 @@
                array('name' => "article") ,
                array('name' => "admin" , 'on' => "article.arAuthor = admin.amId") ,
                array('name' => "ref_category" , 'on' => "article.arCategory = ref_category.catId") ,
-               array('name' => "ref_map", 'on' => "article.arId = ref_map.mapArticleId")
+               array('name' => "ref_map", 'on' => "article.arId = ref_map.mapArticleId") ,
+               array('name' => "ref_social_media", 'on' => "article.arId = ref_social_media.smArticleId")
             ) ,
             'where' => "arId = '" . $id . "'" ,
-            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, catName, amName, mapLongitude, mapLatitude, mapZoom"
+            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, arURL, catName, amName, mapLongitude, mapLatitude, mapZoom , smTwitter, smInstagram, smFacebook, smLine, smPath"
          ));
 
-         $data = $this->dbsql->result();
+         $article = $this->dbsql->result();
+         $result = array();
 
-         if ($data) $result = $data[0];
-         else $result = array();
+         foreach ($article as $data) {
+            $key = $data->arURL;
+            $result[$key] = $data;
+         }
 
          return $result;
       }
@@ -47,14 +60,23 @@
                array('name' => "article") ,
                array('name' => "admin" , 'on' => "article.arAuthor = admin.amId") ,
                array('name' => "ref_category" , 'on' => "article.arCategory = ref_category.catId") ,
-               array('name' => "ref_map", 'on' => "article.arId = ref_map.mapArticleId")
+               array('name' => "ref_map", 'on' => "article.arId = ref_map.mapArticleId") ,
+               array('name' => "ref_social_media", 'on' => "article.arId = ref_social_media.smArticleId")
             ) ,
             'where' => "ref_category.catId = '" . $cat . "'" ,
-            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, catName, amName, mapLongitude, mapLatitude, mapZoom",
+            'select' => "arId, arTitle, arAuthor, arDateStart, arDateEnd, arContent, arBarcode, arPict, arURL, catName, amName, mapLongitude, mapLatitude, mapZoom , smTwitter, smInstagram, smFacebook, smLine, smPath" ,
             'order' => 'arDateStart DESC'
          ));
 
-         return $this->dbsql->result();
+         $article = $this->dbsql->result();
+         $result = array();
+
+         foreach ($article as $data) {
+            $key = $data->arURL;
+            $result[$key] = $data;
+         }
+
+         return $result;
       }
    }
 

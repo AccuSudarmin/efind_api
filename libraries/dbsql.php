@@ -122,7 +122,6 @@ class dbsql {
 	public function result(){
    	$result = array();
       $fields = array();
-		$std = new stdClass();
 		$i = 0;
 
       while ($i < mysqli_num_fields($this->query)) {
@@ -131,14 +130,14 @@ class dbsql {
          $i++;
       }
 
-		$i = 0;
       while ($data = mysqli_fetch_array($this->query)) {
+			$std = new stdClass();
+			
          for ($a=0; $a < count($fields); $a++) {
          	$name = $fields[$a];
             $std->{$name} = $data[$name];
          }
 			array_push($result, $std);
-			$i++;
    	}
       return $result;
    }

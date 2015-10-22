@@ -9,11 +9,12 @@
    function checkApi (){
       $app = \Slim\Slim::getInstance();
 
-      $header = apache_request_headers();
-      if ($header['API_KEY'] != API_KEY ) {
-         echo json_encode(array("message" => "wrong api"));
-         exit;
-      }
+      // $header = getallheaders();
+      //
+      // if ($header['API_KEY'] != API_KEY ) {
+      //    echo json_encode(array("message" => "wrong api"));
+      //    exit;
+      // }
    };
 
    // GET route
