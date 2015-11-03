@@ -132,7 +132,7 @@ class dbsql {
 
       while ($data = mysqli_fetch_array($this->query)) {
 			$std = new stdClass();
-			
+
          for ($a=0; $a < count($fields); $a++) {
          	$name = $fields[$a];
             $std->{$name} = $data[$name];
